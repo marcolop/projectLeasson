@@ -1,0 +1,18 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --primary: #6640FC;
+    --lila: #8900CA;
+    --morado: #B19FFD;
+    --purple: #F2F2FE;
+    --fuente-principal: 'Open Sans', sans-serif;
+    --font-secondary: 'Monserrat', sans-serif;
+}
+body {
+    font-size: 27px;
+    font-family: var(--fuente-principal);
+    line-height: 1.5;
+}

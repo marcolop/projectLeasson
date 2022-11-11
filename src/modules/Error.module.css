@@ -1,0 +1,35 @@
+.class {
+    color: #6640FC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 5px;
+    position: absolute;
+    width: 419px;
+    height: 130px;
+    left: 510px;
+    top: 216px;
+}
+.error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 5px;
+}
+.elipse {
+    position: absolute;
+    left:  670px;
+    top:  400px;
+    background: #8900CA;
+    opacity: 0.3;
+    filter: blur(50px);
+}
+.Image2 {
+    position: absolute;
+    left: -700px;
+    top: -400px;
+    background: #B19FFD;
+    filter: blur(100px);
+}
