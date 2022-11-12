@@ -15,6 +15,10 @@ import { getAllCompaniesName, userRegister } from '../../services/axiosServices'
 const Register = () => {
     const [open, setOpen] = useState(false);
     const [companies, setCompanies] = useState([])
+    const [companyList, setCompanyList] = useState([])
+
+    const [inputValue, setInputValue] = useState('')
+
     const [user, setUser] = useState({
         email: '',
         company: '',
@@ -45,25 +49,38 @@ const Register = () => {
 
     useEffect(() => {
         console.log(companies)
+        companyMap()
     }, [companies])
 
     useEffect(() => {
         console.log(user)
-    }, [user]) 
+    }, [user])
 
 
     const handleRegister = async (event) => {
         event.preventDefault();
 
         const response = await userRegister(user)
-                if (response.status === 'registered') {
-                    alert('ususario registrado')              
-                }
-                console.log(response)
+        if (response.status === 'registered') {
+            alert('ususario registrado')
+        }
+        console.log(response)
             .catch(err => {
                 console.log(response)
                 setErrorRegister(true)
             })
+    }
+
+    const setFieldValue = (type, value) => {
+        setValues((oldValues) => ({ ...oldValues, [type]: value }));
+    };
+
+    const companyMap = async () => {
+        const companyName = await companies.map((company) => {
+            return company.name
+        })
+
+        setCompanyList(companyName)
     }
 
     return (
@@ -72,7 +89,7 @@ const Register = () => {
                 Agregar Usuarios
             </Button>
             <Dialog open={open} onClose={handleClose}>
-              <CloseIcon/>
+                <CloseIcon />
                 <DialogTitle>Registrar Usuarios</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
@@ -82,20 +99,25 @@ const Register = () => {
                     <Autocomplete
                         disablePortal
                         id="company"
-                        options={companies.map((company) => {
-                            return { label: company.name, value: company.name }
-                        })}
+                        onChange={(event, newValue) => setUser(prev => ({ ...prev, company: newValue}))}
+                        inputValue={inputValue}
+                        onInputChange={(e, newInputValue) => {
+                            setInputValue(newInputValue);
+                        }}
+                        isOptionEqualToValue={(option, value) => option === value}
+                        options={companyList}
                         sx={{ width: 400 }}
                         value={user.company}
-                        renderInput={(params) => 
+                        renderInput={(params) =>
+
                         <TextField
                         {...params}
                         id="company"
                         label="Empresas"
-                        onChange={handleInputChange('company')}
                         />
                     }
                     />
+
                     <TextField
                         autoFocus
                         margin="dense"

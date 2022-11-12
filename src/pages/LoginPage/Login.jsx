@@ -26,9 +26,12 @@ const Login = () => {
 
     if (response.status === 'logged in') {
       localStorage.setItem('Token', JSON.stringify(response.token))
-      // window.location.reload()
-      // window.location.href = ('/')
+      window.location.reload()
+      window.location.href = ('/')
       alert('Te logeaste correctamente')
+    } else if (response.status === 'not verified') {
+      console.log(response)
+      alert('Usuario no verificado')
     } else {
       console.log(response)
       alert('Usuario no encontrado')
@@ -72,8 +75,8 @@ const Login = () => {
       </Grid>
       <Grid xs={8} md={8}>
         <Button
-        onClick={handleLogin}
-        type={'submit'}
+          onClick={handleLogin}
+          type={'submit'}
         >Iniciar Sesión</Button>
       </Grid>
     </Grid>
