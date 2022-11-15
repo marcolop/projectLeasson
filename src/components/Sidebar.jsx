@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState, useEffect } from 'react'
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -19,6 +19,7 @@ import Grid from '@mui/material/Grid';
 import BusinessTwoToneIcon from '@mui/icons-material/BusinessTwoTone';
 import Register from '../pages/RegisterPage/Register';
 import SearchIcon from '@mui/icons-material/Search';
+import { getAllUsers } from '../services/axiosServices';
 
 const drawerWidth = 240;
 
@@ -71,11 +72,19 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MiniDrawer() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [userArray, setUserArray] = useState([])
 
+  useEffect(() => {
+    getAllUsers(setUserArray)
+  }, [])
+
+  useEffect(() => {
+    console.log(userArray)
+  }, [userArray])
 
   const handleDrawerSet = () => {
-     setOpen(!open)
+    setOpen(!open)
   }
 
   return (
@@ -83,18 +92,18 @@ export default function MiniDrawer() {
       <CssBaseline />
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-           <IconButton onClick={handleDrawerSet}>
-            {!open ? <ChevronRightIcon/> : <ChevronLeftIcon />}
+          <IconButton onClick={handleDrawerSet}>
+            {!open ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </DrawerHeader>
-         <Box sx={{
-            width: 400,
-            heigth: 400
+        <Box sx={{
+          width: 400,
+          heigth: 400
         }}>
-          <img src={Image}/>
-         </Box>
+          <img src={Image} />
+        </Box>
         <List>
-          {['Inicio', 'Empresas', 'Usuarios', 'Perfil','Cerrar Sesión'].map((text) => (
+          {['Inicio', 'Empresas', 'Usuarios', 'Perfil', 'Cerrar Sesión'].map((text) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -110,36 +119,36 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  <HomeIcon/>
+                  <HomeIcon />
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           ))}
         </List>
-        <Divider color="#6640FC" className={style.divider}/>
+        <Divider color="#6640FC" className={style.divider} />
       </Drawer>
-      <Grid container 
-          direction="row" 
-          justifyContent="center" 
-          alignItems="center"
-          columns={16}
-          spacing={2}>
-         <Grid  sx={8} md={8}>
-           <Box sx={{
-               color: 'var(--primary)'
-           }}>
-             <h2>Usuarios</h2>
-           </Box>
-         </Grid>
-         <Grid xs={4} md={4}>
-           <Register/>
-         </Grid>
-         <Grid xs={8}>
-           <SearchIcon/>
-         </Grid>
+      <Grid container
+        direction="row"
+        justifyContent="center"
+        alignItems="center"
+        columns={16}
+        spacing={2}>
+        <Grid sx={8} md={8}>
+          <Box sx={{
+            color: 'var(--primary)'
+          }}>
+            <h2>Usuarios</h2>
+          </Box>
+        </Grid>
+        <Grid xs={4} md={4}>
+          <Register />
+        </Grid>
+        <Grid xs={8}>
+          <SearchIcon />
+        </Grid>
       </Grid>
-        <DrawerHeader/>
+      <DrawerHeader />
     </Box>
   );
 }
