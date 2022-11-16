@@ -48,3 +48,17 @@ export const getAllUsers = async (setUserArray) => {
         .catch((err) => err.data);
     return response
 };
+
+export const postCompany = async (data) => {
+    const response = axios
+        .post(`https://ofthislesson-production.up.railway.app/api/company/register`, data
+        ,{
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem("Token"))}`,
+                'Content-Type': 'application/json'
+            }
+        })
+        .then((res) => res.data)
+        .catch((err) => err.response.data)
+    return response
+};
