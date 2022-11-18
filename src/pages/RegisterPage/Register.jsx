@@ -106,7 +106,7 @@ const Register = () => {
                         }}
                         isOptionEqualToValue={(option, value) => option === value}
                         options={companyList}
-                        sx={{ width: 400 }}
+                        sx={{ width: 'auto' }}
                         value={user.company}
                         renderInput={(params) =>
 
